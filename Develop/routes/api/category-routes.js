@@ -8,23 +8,23 @@ router.get('/', async (req, res) => {
     attributes: ['id', 'category_name'],
       include: [{
           model: Product,
-          as: 'products',
-          attributes: ['id', 'category_name']
+          attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
       }]});
     res.json(categories);
 });
+//tested and route works
 
 router.get('/:id', async (req, res) => {
     const category = await Category.findByPk(req.params.id, {
       attributes: ['id', 'category_name'],
       include: [{
-        model: Product, 
-        as: 'products', 
-        attributes: ['id', 'category_name']}]
+        model: Product,  
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']}]
     });
     res.json(category);
   }
 );
+//tested and route works
 
 router.post('/', async (req, res) => {
     const { id, category_name } = req.body;
@@ -34,24 +34,31 @@ router.post('/', async (req, res) => {
     });
     res.json(newCategory);
   });
+  // tested and working
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a category by its `id` value
-});
+    const { id, category_name } = req.body;
+  const existingCategory = await Category.findByPk(req.params.id);
+    await existingCategory.update({
+      id,
+      category_name,
+    });
+  
+    res.json(existingCategory);});
+
+    //tested and working
 
 
   // delete a category by its `id` value
   router.delete('/:id', async (req, res) => {
-    try {
       const categoryData = await Category.destroy({
         where: {
           id: req.params.id
         }
       });
       res.status(200).json(categoryData);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+    });
+  //tested and working
 
 module.exports = router;
