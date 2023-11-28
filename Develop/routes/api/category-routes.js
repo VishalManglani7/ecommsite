@@ -35,6 +35,12 @@ router.post('/', async (req, res) => {
     res.json(newCategory);
   });
   // tested and working
+  
+  // {
+  // "id": 11,
+  // "category_name": "Test Category"
+  // }
+
 
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
@@ -48,6 +54,11 @@ router.put('/:id', async (req, res) => {
     res.json(existingCategory);});
 
     //tested and working
+
+    // {
+    //   "id": 11,
+    //   "category_name": "Updated Category"
+    // }
 
 
   // delete a category by its `id` value

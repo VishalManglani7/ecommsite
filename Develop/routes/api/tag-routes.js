@@ -38,6 +38,11 @@ router.post('/', async (req, res) => {
   res.json(newTag);
 });
 
+// {
+//   "id": 10,
+//   "tag_name": "Example Tag"
+// }
+
 router.put('/:id', async(req, res) => {
   // update a tag's name by its `id` value
   const { id, tag_name } = req.body;
